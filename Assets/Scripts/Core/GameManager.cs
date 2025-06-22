@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Evolution.Dungeon;
 using Evolution.Combat;
+using Evolution.Inventory;
+using System.Linq;
 
 namespace Evolution.Core
 {
@@ -36,6 +38,7 @@ namespace Evolution.Core
         public event Action<DungeonData> OnDungeonLoaded;
 
         private SessionData currentSession;
+        private readonly Inventory inventory = new();
 
         private void Awake()
         {
@@ -123,7 +126,7 @@ namespace Evolution.Core
                     }
                     break;
                 case RoomType.Locked:
-                    Debug.Log("Encountered a locked door.");
+                    HandleLockedRoom();
                     break;
                 case RoomType.Treasure:
                     Debug.Log("Found a treasure chest!");
@@ -140,6 +143,32 @@ namespace Evolution.Core
                     SpawnFloor(currentSession.CurrentFloor - 1);
                     OnDungeonLoaded?.Invoke(currentSession.Dungeon);
                     break;
+            }
+        }
+
+        private void HandleLockedRoom()
+        {
+            var door = FindObjectOfType<Evolution.Dungeon.Door>();
+            if (door == null)
+            {
+                Debug.Log("Encountered a locked door but none was found in the scene.");
+                return;
+            }
+
+            if (door.IsLocked)
+            {
+                var keyItem = inventory.Items.FirstOrDefault(i => i.Name == "Key");
+                if (keyItem != null)
+                {
+                    inventory.RemoveItem(keyItem);
+                    door.Unlock();
+                    door.Open();
+                    Debug.Log("Used a key to unlock the door.");
+                }
+                else
+                {
+                    Debug.Log("The door is locked. A key is required.");
+                }
             }
         }
 
