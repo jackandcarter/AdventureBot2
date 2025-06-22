@@ -107,17 +107,51 @@ namespace Evolution.UI
         // ──────────────────────────────────────────────────────────────
         public void ShowIllusionRoom()
         {
-            // TODO: display generic illusion challenge UI
+            if (roomCanvas != null)
+            {
+                roomCanvas.alpha = 1f;
+                roomCanvas.interactable = true;
+                roomCanvas.blocksRaycasts = true;
+            }
+            if (battleCanvas != null)
+            {
+                battleCanvas.alpha = 0f;
+                battleCanvas.interactable = false;
+                battleCanvas.blocksRaycasts = false;
+            }
+            if (menuCanvas != null)
+            {
+                menuCanvas.alpha = 0f;
+                menuCanvas.interactable = false;
+                menuCanvas.blocksRaycasts = false;
+            }
+            if (roomDescription != null)
+                roomDescription.text = "You sense a powerful illusion in this room.";
         }
 
         public void ShowIllusionCrystal(int index, IList<object> crystals)
         {
-            // TODO: present elemental crystal at given index
+            ShowIllusionRoom();
+            if (roomDescription == null)
+                return;
+
+            string label = "Unknown";
+            if (crystals != null && index >= 0 && index < crystals.Count && crystals[index] != null)
+                label = crystals[index].ToString();
+
+            roomDescription.text = $"Crystal {index + 1}: {label}";
         }
 
         public void ShowIllusionEnemyCount(IList<int> options)
         {
-            // TODO: ask player for enemy count guess
+            ShowIllusionRoom();
+            if (roomDescription == null)
+                return;
+
+            if (options != null && options.Count > 0)
+                roomDescription.text = $"How many enemies do you see? ({string.Join("/", options)})";
+            else
+                roomDescription.text = "How many enemies do you see?";
         }
     }
 }
