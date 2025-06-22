@@ -1,21 +1,25 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace Evolution.Core
 {
     /// <summary>
-    /// Tracks active game sessions and provides basic persistence through
-    /// <see cref="DatabaseClient"/>. This mirrors the Python SessionManager
-    /// used by the Discord bot but is tailored for a local Unity game.
+    /// Tracks active game sessions and provides simple local persistence.
+    /// Originally mirrored the Discord bot's SessionManager but now stores data
+    /// on disk so no network connection is required.
     /// </summary>
     public class SessionManager : MonoBehaviour
     {
         private readonly Dictionary<int, SessionData> sessions = new();
-        private DatabaseClient db;
 
-        public void Initialise(DatabaseClient client)
+        private const string SaveFolder = "Sessions";
+        private string FolderPath => Path.Combine(Application.persistentDataPath, SaveFolder);
+
+        private void Awake()
         {
-            db = client;
+            if (!Directory.Exists(FolderPath))
+                Directory.CreateDirectory(FolderPath);
         }
 
         public SessionData GetSession(int id)
@@ -32,38 +36,18 @@ namespace Evolution.Core
 
         public void SaveSession(SessionData data)
         {
-            if (db == null || data == null) return;
+            if (data == null) return;
             sessions[data.SessionId] = data;
             string json = JsonUtility.ToJson(data);
-            db.Execute(
-                "UPDATE sessions SET game_state=@state WHERE session_id=@id",
-                cmd =>
-                {
-                    var pState = cmd.CreateParameter();
-                    pState.ParameterName = "@state";
-                    pState.Value = json;
-                    cmd.Parameters.Add(pState);
-
-                    var pId = cmd.CreateParameter();
-                    pId.ParameterName = "@id";
-                    pId.Value = data.SessionId;
-                    cmd.Parameters.Add(pId);
-                });
+            string path = Path.Combine(FolderPath, $"{data.SessionId}.json");
+            File.WriteAllText(path, json);
         }
 
         public SessionData LoadSession(int sessionId)
         {
-            if (db == null) return null;
-            string json = db.QueryScalar<string>(
-                "SELECT game_state FROM sessions WHERE session_id=@id",
-                cmd =>
-                {
-                    var p = cmd.CreateParameter();
-                    p.ParameterName = "@id";
-                    p.Value = sessionId;
-                    cmd.Parameters.Add(p);
-                });
-            if (string.IsNullOrEmpty(json)) return null;
+            string path = Path.Combine(FolderPath, $"{sessionId}.json");
+            if (!File.Exists(path)) return null;
+            string json = File.ReadAllText(path);
             var data = JsonUtility.FromJson<SessionData>(json);
             sessions[sessionId] = data;
             return data;
