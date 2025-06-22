@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1
+GameObject:
+  m_Name: BossRoom
+  m_Component:
+  - component: {fileID: 2}
+  - component: {fileID: 3} # MeshFilter
+  - component: {fileID: 4} # MeshRenderer
+  - component: {fileID: 5} # RoomPrefab
+--- !u!4 &2
+Transform:
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+--- !u!33 &3
+MeshFilter:
+  m_Mesh: {fileID: 4300000, guid: 9fd342e1-292d-4053-a416-adf5458ec407, type: 3}
+--- !u!23 &4
+MeshRenderer:
+  m_Materials: []
+--- !u!114 &5
+MonoBehaviour:
+  m_Script: {fileID: 11500000, guid: ef45e461-e3f6-4885-ad5b-be7f7d37d9a1, type: 3}
+  NorthDoor: {fileID: 0}
+  EastDoor: {fileID: 0}
+  SouthDoor: {fileID: 0}
+  WestDoor: {fileID: 0}
