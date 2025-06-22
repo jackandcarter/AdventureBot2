@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Evolution.Combat
@@ -36,6 +37,7 @@ namespace Evolution.Combat
         public float Speed;
         public float ATB;
         public float ATBMax = 5f;
+        public List<Ability> Abilities = new();
         public Dictionary<string, float> Cooldowns = new();
         public List<StatusEffect> Effects = new();
 
@@ -191,12 +193,42 @@ namespace Evolution.Combat
             var ability = ChooseEnemyAbility();
             if (ability == null)
                 return;
-            ApplyAbility(State.Enemy, State.Players[State.Players.Keys.First()], ability); // simple: target first player
+
+            Combatant target;
+            if (ability.TargetSelf)
+                target = State.Enemy;
+            else
+                target = State.Players[State.Players.Keys.First()]; // simple: target first player
+
+            ApplyAbility(State.Enemy, target, ability);
         }
 
         private Ability ChooseEnemyAbility()
         {
-            // stub random ability; extend as needed
+            var enemy = State.Enemy;
+            if (enemy == null)
+                return null;
+
+            // decrement cooldowns each turn
+            var keys = new List<string>(enemy.Cooldowns.Keys);
+            foreach (var key in keys)
+                enemy.Cooldowns[key] = Mathf.Max(enemy.Cooldowns[key] - 1f, 0f);
+
+            if (enemy.Abilities.Count == 0)
+            {
+                // ensure at least one basic attack
+                enemy.Abilities.Add(new Ability { Name = "Attack", Damage = 1, Cooldown = 0f });
+            }
+
+            foreach (var ability in enemy.Abilities)
+            {
+                if (!enemy.Cooldowns.TryGetValue(ability.Name, out float cd) || cd <= 0f)
+                {
+                    enemy.Cooldowns[ability.Name] = ability.Cooldown;
+                    return ability;
+                }
+            }
+
             return null;
         }
 
