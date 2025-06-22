@@ -11,7 +11,7 @@ namespace Evolution.Core
     /// <summary>
     /// Top level orchestrator for dungeon exploration. Inspired by the
     /// Python GameMaster class, this version drives gameplay inside Unity
-    /// and communicates with the backend through <see cref="DatabaseClient"/>.
+    /// with all data stored locally for now.
     /// </summary>
     public class GameManager : MonoBehaviour
     {
