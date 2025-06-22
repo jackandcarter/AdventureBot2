@@ -22,7 +22,47 @@ MeshRenderer:
 --- !u!114 &5
 MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef45e461-e3f6-4885-ad5b-be7f7d37d9a1, type: 3}
-  NorthDoor: {fileID: 0}
-  EastDoor: {fileID: 0}
-  SouthDoor: {fileID: 0}
-  WestDoor: {fileID: 0}
+  NorthDoor: {fileID: 7}
+  EastDoor: {fileID: 9}
+  SouthDoor: {fileID: 11}
+  WestDoor: {fileID: 13}
+--- !u!1 &6
+GameObject:
+  m_Name: NorthDoor
+  m_Component:
+  - component: {fileID: 7}
+--- !u!4 &7
+Transform:
+  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+--- !u!1 &8
+GameObject:
+  m_Name: EastDoor
+  m_Component:
+  - component: {fileID: 9}
+--- !u!4 &9
+Transform:
+  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+--- !u!1 &10
+GameObject:
+  m_Name: SouthDoor
+  m_Component:
+  - component: {fileID: 11}
+--- !u!4 &11
+Transform:
+  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+--- !u!1 &12
+GameObject:
+  m_Name: WestDoor
+  m_Component:
+  - component: {fileID: 13}
+--- !u!4 &13
+Transform:
+  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
