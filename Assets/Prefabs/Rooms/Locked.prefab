@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 17} # Door
 --- !u!4 &7
 Transform:
-  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: 5.5}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
 --- !u!33 &14
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 21} # Door
 --- !u!4 &9
 Transform:
-  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalPosition: {x: 5.5, y: 0, z: 0}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
 --- !u!33 &18
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 25} # Door
 --- !u!4 &11
 Transform:
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -5.5}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
 --- !u!33 &22
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 29} # Door
 --- !u!4 &13
 Transform:
-  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalPosition: {x: -5.5, y: 0, z: 0}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
 --- !u!33 &26
