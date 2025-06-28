@@ -26,7 +26,7 @@ BoxCollider:
   m_Size: {x: 1, y: 2, z: 0.25}
 --- !u!114 &6
 MonoBehaviour:
-  m_Script: {fileID: 11500000, guid: b119e26a-88d1-4f8d-a5bd-82811becb70e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c89e877-29ef-44f4-5bda-cf84c33947d9, type: 3}
   locked: 0
   animator: {fileID: 0}
   doorCollider: {fileID: 5}
