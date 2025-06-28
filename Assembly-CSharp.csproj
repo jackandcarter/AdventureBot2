@@ -58,6 +58,48 @@
     <Analyzer Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.entities@6a355619334f/Unity.Entities/SourceGenerators/Common.dll" />
     <Analyzer Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.entities@6a355619334f/Unity.Entities/SourceGenerators/SystemGenerator.EntityQueryBulkOperations.dll" />
     <Analyzer Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.entities@6a355619334f/Unity.Entities/SourceGenerators/Unity.Entities.Analyzer.CodeFixes.dll" />
+    <Analyzer Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/NetCodeSourceGenerator.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueFloatUnquantized.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueUInt.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueDoubleUnquantized.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueBool.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueFloat2.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueUShort.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueFloat4Unquantized.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/FixedList/GhostFixedListCommandHelper.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueQuaternion.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueFloat3.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueFloat3Unquantized.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueEntity.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueFloat2Unquantized.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/InputSynchronization.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/FixedList/GhostFixedListContainer.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueFixedString64Bytes.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueFixedString4096Bytes.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueSByte.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueDouble.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueFixedString32Bytes.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/FixedList/GhostFixedListElement.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/FixedList/GhostFixedListSnapshotHelpers.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueFixedString512Bytes.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/FixedList/GhostSnapshotFixedList.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/CommandDataSerializer.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/GhostComponentSerializer.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueULong.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueNetworkEndpoint.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueShort.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/GhostComponentSerializerRegistrationSystem.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueByte.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueLong.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueQuaternionUnquantized.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueInt.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/RpcCommandSerializer.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueFixedString128Bytes.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueFloat.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueNetworkTick.NetCodeSourceGenerator.additionalfile" />
+    <AdditionalFiles Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.netcode@de906627a810/Runtime/SourceGenerators/Templates/DefaultTypes/GhostSnapshotValueFloat4.NetCodeSourceGenerator.additionalfile" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/Scripts/Inventory/Inventory.cs" />
@@ -65,14 +107,43 @@
     <Compile Include="Assets/Scripts/UI/BattleUI.cs" />
     <Compile Include="Assets/Scripts/Combat/ATBManager.cs" />
     <Compile Include="Assets/Scripts/Core/SessionManager.cs" />
+    <Compile Include="Assets/Scripts/Data/RoomDataDefinitions.cs" />
     <Compile Include="Assets/Scripts/Dungeon/DungeonGenerator.cs" />
+    <Compile Include="Assets/Scripts/Core/Multiplayer/PlayerController.cs" />
     <Compile Include="Assets/Scripts/Dungeon/RoomPrefab.cs" />
     <Compile Include="Assets/Scripts/Data/ItemData.cs" />
-    <Compile Include="Assets/Scripts/Core/DatabaseClient.cs" />
+    <Compile Include="Assets/Scripts/Core/DataManager.cs" />
     <Compile Include="Assets/Scripts/UI/MapUI.cs" />
     <Compile Include="Assets/Scripts/Core/GameManager.cs" />
+    <Compile Include="Assets/Scripts/Core/Multiplayer/LobbyManager.cs" />
     <Compile Include="Assets/Scripts/Combat/BattleManager.cs" />
+    <Compile Include="Assets/Scripts/Dungeon/RoomBuilder.cs" />
     <Compile Include="Assets/Scripts/UI/UIManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile-2-Pass.shader" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets/TextMesh Pro/Shaders/SDFFunctions.hlsl" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader" />
+    <None Include="Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF.shader" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader" />
+    <None Include="Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc" />
+    <None Include="Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader" />
+    <None Include="Assets/TextMesh Pro/Shaders/TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -1079,12 +1150,24 @@
       <HintPath>Library/ScriptAssemblies/Unity.Transforms.Hybrid.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Networking.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.Networking.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Netcode.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.Netcode.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
       <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.NetCode.Editor.Drawers">
+      <HintPath>Library/ScriptAssemblies/Unity.NetCode.Editor.Drawers.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime.Shared">
@@ -1097,6 +1180,10 @@
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.NetCode.Authoring.Hybrid">
+      <HintPath>Library/ScriptAssemblies/Unity.NetCode.Authoring.Hybrid.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Timeline">
@@ -1139,6 +1226,10 @@
       <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.GPUDriven.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Netcode.Runtime">
+      <HintPath>Library/ScriptAssemblies/Unity.Netcode.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.ScriptableBuildPipeline">
       <HintPath>Library/ScriptAssemblies/Unity.ScriptableBuildPipeline.dll</HintPath>
       <Private>False</Private>
@@ -1149,6 +1240,10 @@
     </Reference>
     <Reference Include="PPv2URPConverters">
       <HintPath>Library/ScriptAssemblies/PPv2URPConverters.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.NetCode">
+      <HintPath>Library/ScriptAssemblies/Unity.NetCode.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Serialization">
@@ -1243,6 +1338,14 @@
       <HintPath>Library/ScriptAssemblies/Unity.Scenes.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.NetCode.Physics">
+      <HintPath>Library/ScriptAssemblies/Unity.NetCode.Physics.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Netcode.PackageChecker.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.Netcode.PackageChecker.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
       <HintPath>Library/ScriptAssemblies/Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
       <Private>False</Private>
@@ -1259,6 +1362,10 @@
       <HintPath>Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Networking.Transport">
+      <HintPath>Library/ScriptAssemblies/Unity.Networking.Transport.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
       <Private>False</Private>
@@ -1269,6 +1376,14 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Runtime">
       <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.NetCode.Physics.Hybrid">
+      <HintPath>Library/ScriptAssemblies/Unity.NetCode.Physics.Hybrid.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.NetCode.Hybrid">
+      <HintPath>Library/ScriptAssemblies/Unity.NetCode.Hybrid.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">

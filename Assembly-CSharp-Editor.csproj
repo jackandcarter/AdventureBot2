@@ -60,7 +60,12 @@
     <Analyzer Include="/Volumes/Install/AdventureBot 2.0/AdventureGame 1.0/Library/PackageCache/com.unity.entities@6a355619334f/Unity.Entities/SourceGenerators/Unity.Entities.Analyzer.CodeFixes.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/Scripts/Editor/ClassEditor.cs" />
+    <Compile Include="Assets/Scripts/Editor/ShopEditor.cs" />
+    <Compile Include="Assets/Scripts/Editor/RoomTypeEditor.cs" />
+    <Compile Include="Assets/Scripts/Editor/ItemEditor.cs" />
     <Compile Include="Assets/Scripts/Editor/UIManagerEditor.cs" />
+    <Compile Include="Assets/Scripts/Editor/EnemyEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
