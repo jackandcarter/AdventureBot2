@@ -8,6 +8,7 @@ GameObject:
   - component: {fileID: 3} # MeshFilter
   - component: {fileID: 4} # MeshRenderer
   - component: {fileID: 5} # RoomPrefab
+- component: {fileID: 30} # RoomBuilder
 --- !u!4 &2
 Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -146,3 +147,9 @@ MonoBehaviour:
   locked: 0
   animator: {fileID: 0}
   doorCollider: {fileID: 28}
+--- !u!114 &30
+MonoBehaviour:
+  m_Script: {fileID: 11500000, guid: d6f17f0e-897e-4bed-86c2-f78233d0f5e6, type: 3}
+  roomSize: {x: 10, y: 10}
+  tileSize: 1
+  tileSetPath: Models/Tiles/Base
