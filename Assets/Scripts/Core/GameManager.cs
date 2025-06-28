@@ -32,6 +32,7 @@ namespace Evolution.Core
         [SerializeField] private Transform dungeonRoot;
 
         private readonly List<RoomPrefab> spawnedRooms = new();
+        private readonly Dictionary<Vector2Int, RoomPrefab> roomLookup = new();
         private readonly Dictionary<RoomType, RoomPrefab> prefabLookup = new();
 
         public event Action<RoomData> OnRoomEntered;
@@ -108,11 +109,13 @@ namespace Evolution.Core
             var floor = currentSession.Dungeon.Floors[currentSession.CurrentFloor - 1];
             RoomData room = floor.Rooms.Find(r => r.Coord == coord);
             if (room == null) return;
-            HandleRoom(room);
+
+            roomLookup.TryGetValue(coord, out var prefab);
+            HandleRoom(room, prefab);
             OnRoomEntered?.Invoke(room);
         }
 
-        private void HandleRoom(RoomData room)
+        private void HandleRoom(RoomData room, RoomPrefab roomPrefab)
         {
             switch (room.Type)
             {
@@ -126,7 +129,7 @@ namespace Evolution.Core
                     }
                     break;
                 case RoomType.Locked:
-                    HandleLockedRoom();
+                    HandleLockedRoom(roomPrefab);
                     break;
                 case RoomType.Treasure:
                     Debug.Log("Found a treasure chest!");
@@ -146,12 +149,18 @@ namespace Evolution.Core
             }
         }
 
-        private void HandleLockedRoom()
+        private void HandleLockedRoom(RoomPrefab roomPrefab)
         {
-            var door = FindObjectOfType<Evolution.Dungeon.Door>();
+            if (roomPrefab == null)
+            {
+                Debug.Log("Encountered a locked room but prefab was null.");
+                return;
+            }
+
+            var door = roomPrefab.DoorMap.Values.FirstOrDefault(d => d != null);
             if (door == null)
             {
-                Debug.Log("Encountered a locked door but none was found in the scene.");
+                Debug.Log("Encountered a locked door but none was found in the room prefab.");
                 return;
             }
 
@@ -188,6 +197,7 @@ namespace Evolution.Core
                 if (r != null)
                     Destroy(r.gameObject);
             spawnedRooms.Clear();
+            roomLookup.Clear();
         }
 
         private void SpawnFloor(int floorIndex)
@@ -205,6 +215,7 @@ namespace Evolution.Core
                 var inst = Instantiate(prefab, pos, Quaternion.identity, dungeonRoot);
                 SetupDoors(inst, room);
                 spawnedRooms.Add(inst);
+                roomLookup[room.Coord] = inst;
             }
         }
 
@@ -212,33 +223,23 @@ namespace Evolution.Core
         {
             if (roomPrefab == null || data == null) return;
 
-            SetDoorActive(roomPrefab.NorthDoor, false);
-            SetDoorActive(roomPrefab.EastDoor, false);
-            SetDoorActive(roomPrefab.SouthDoor, false);
-            SetDoorActive(roomPrefab.WestDoor, false);
+            roomPrefab.BuildDoorMap();
+
+            foreach (var door in roomPrefab.DoorMap.Values)
+                SetDoorActive(door, false);
 
             foreach (var conn in data.Connections)
             {
                 Vector2Int dir = conn - data.Coord;
-                if (dir == Vector2Int.up)
-                    SetDoorActive(roomPrefab.NorthDoor, true);
-                else if (dir == Vector2Int.right)
-                    SetDoorActive(roomPrefab.EastDoor, true);
-                else if (dir == Vector2Int.down)
-                    SetDoorActive(roomPrefab.SouthDoor, true);
-                else if (dir == Vector2Int.left)
-                    SetDoorActive(roomPrefab.WestDoor, true);
+                if (roomPrefab.TryGetDoor(dir, out var door))
+                    SetDoorActive(door, true);
             }
         }
 
-        private void SetDoorActive(Transform holder, bool active)
+        private void SetDoorActive(Door door, bool active)
         {
-            if (holder == null) return;
-            var door = holder.GetComponentInChildren<Evolution.Dungeon.Door>(true);
-            if (door != null)
-                door.gameObject.SetActive(active);
-            else
-                holder.gameObject.SetActive(active);
+            if (door == null) return;
+            door.gameObject.SetActive(active);
         }
     }
 }
