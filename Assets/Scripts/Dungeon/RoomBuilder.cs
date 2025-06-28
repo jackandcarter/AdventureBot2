@@ -11,6 +11,21 @@ namespace Evolution.Dungeon
         [SerializeField] private float tileSize = 1f;
         [SerializeField] private string tileSetPath = "Models/Tiles/Base";
 
+        /// <summary>
+        /// Size of the room grid in tiles.
+        /// </summary>
+        public Vector2Int RoomSize => roomSize;
+
+        /// <summary>
+        /// Size of a single tile in world units.
+        /// </summary>
+        public float TileSize => tileSize;
+
+        /// <summary>
+        /// Total room dimensions in world units.
+        /// </summary>
+        public Vector2 RoomDimensions => new Vector2(roomSize.x * tileSize, roomSize.y * tileSize);
+
         private GameObject floorPrefab;
         private GameObject wallPrefab;
         private GameObject doorPrefab;

@@ -15,6 +15,8 @@ namespace Evolution.Dungeon
         public Door SouthDoor;
         public Door WestDoor;
 
+        private RoomBuilder builder;
+
         private readonly Dictionary<Vector2Int, Door> doorMap = new();
 
         /// <summary>
@@ -25,6 +27,7 @@ namespace Evolution.Dungeon
         private void Awake()
         {
             BuildDoorMap();
+            builder = GetComponent<RoomBuilder>();
         }
 
         /// <summary>
@@ -47,6 +50,19 @@ namespace Evolution.Dungeon
         {
             if (doorMap.Count == 0) BuildDoorMap();
             return doorMap.TryGetValue(direction, out door);
+        }
+
+        /// <summary>
+        /// World dimensions of this room prefab, derived from its RoomBuilder.
+        /// </summary>
+        public Vector2 RoomDimensions
+        {
+            get
+            {
+                if (builder == null)
+                    builder = GetComponent<RoomBuilder>();
+                return builder != null ? builder.RoomDimensions : Vector2.one * 10f;
+            }
         }
     }
 }

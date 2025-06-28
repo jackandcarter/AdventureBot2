@@ -28,7 +28,6 @@ namespace Evolution.Core
         }
 
         [SerializeField] private List<RoomPrefabEntry> roomPrefabs = new();
-        [SerializeField] private float roomSize = 10f;
         [SerializeField] private Transform dungeonRoot;
 
         private readonly List<RoomPrefab> spawnedRooms = new();
@@ -211,7 +210,8 @@ namespace Evolution.Core
             {
                 if (!prefabLookup.TryGetValue(room.Type, out var prefab) || prefab == null)
                     continue;
-                Vector3 pos = new Vector3(room.Coord.x * roomSize, 0f, room.Coord.y * roomSize);
+                float spacing = prefab.RoomDimensions.x;
+                Vector3 pos = new Vector3(room.Coord.x * spacing, 0f, room.Coord.y * spacing);
                 var inst = Instantiate(prefab, pos, Quaternion.identity, dungeonRoot);
                 SetupDoors(inst, room);
                 spawnedRooms.Add(inst);
