@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Evolution.Dungeon;
 using Evolution.Combat;
-using Evolution.Inventory;
 using System.Linq;
 
 namespace Evolution.Core
@@ -38,7 +37,7 @@ namespace Evolution.Core
         public event Action<DungeonData> OnDungeonLoaded;
 
         private SessionData currentSession;
-        private readonly Inventory inventory = new();
+        private readonly Evolution.Inventory.Inventory inventory = new();
 
         private void Awake()
         {
