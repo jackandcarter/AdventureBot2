@@ -6,27 +6,6 @@ using UnityEngine;
 
 namespace Evolution.Combat
 {
-    [Serializable]
-    public class StatusEffect
-    {
-        public string EffectName;
-        public int Remaining;
-        public int DamagePerTurn;
-        public int HealPerTurn;
-        public float SpeedUp;
-        public float SpeedDown;
-    }
-
-    [Serializable]
-    public class Ability
-    {
-        public string Name;
-        public int Damage;
-        public int Heal;
-        public StatusEffect Effect;
-        public float Cooldown;
-        public bool TargetSelf;
-    }
 
     [Serializable]
     public class Combatant
@@ -217,7 +196,11 @@ namespace Evolution.Combat
             if (enemy.Abilities.Count == 0)
             {
                 // ensure at least one basic attack
-                enemy.Abilities.Add(new Ability { Name = "Attack", Damage = 1, Cooldown = 0f });
+                var basic = ScriptableObject.CreateInstance<Ability>();
+                basic.Name = "Attack";
+                basic.Damage = 1;
+                basic.Cooldown = 0f;
+                enemy.Abilities.Add(basic);
             }
 
             foreach (var ability in enemy.Abilities)
