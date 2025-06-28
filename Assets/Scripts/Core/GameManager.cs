@@ -212,23 +212,33 @@ namespace Evolution.Core
         {
             if (roomPrefab == null || data == null) return;
 
-            if (roomPrefab.NorthDoor != null) roomPrefab.NorthDoor.gameObject.SetActive(false);
-            if (roomPrefab.EastDoor != null) roomPrefab.EastDoor.gameObject.SetActive(false);
-            if (roomPrefab.SouthDoor != null) roomPrefab.SouthDoor.gameObject.SetActive(false);
-            if (roomPrefab.WestDoor != null) roomPrefab.WestDoor.gameObject.SetActive(false);
+            SetDoorActive(roomPrefab.NorthDoor, false);
+            SetDoorActive(roomPrefab.EastDoor, false);
+            SetDoorActive(roomPrefab.SouthDoor, false);
+            SetDoorActive(roomPrefab.WestDoor, false);
 
             foreach (var conn in data.Connections)
             {
                 Vector2Int dir = conn - data.Coord;
-                if (dir == Vector2Int.up && roomPrefab.NorthDoor != null)
-                    roomPrefab.NorthDoor.gameObject.SetActive(true);
-                else if (dir == Vector2Int.right && roomPrefab.EastDoor != null)
-                    roomPrefab.EastDoor.gameObject.SetActive(true);
-                else if (dir == Vector2Int.down && roomPrefab.SouthDoor != null)
-                    roomPrefab.SouthDoor.gameObject.SetActive(true);
-                else if (dir == Vector2Int.left && roomPrefab.WestDoor != null)
-                    roomPrefab.WestDoor.gameObject.SetActive(true);
+                if (dir == Vector2Int.up)
+                    SetDoorActive(roomPrefab.NorthDoor, true);
+                else if (dir == Vector2Int.right)
+                    SetDoorActive(roomPrefab.EastDoor, true);
+                else if (dir == Vector2Int.down)
+                    SetDoorActive(roomPrefab.SouthDoor, true);
+                else if (dir == Vector2Int.left)
+                    SetDoorActive(roomPrefab.WestDoor, true);
             }
+        }
+
+        private void SetDoorActive(Transform holder, bool active)
+        {
+            if (holder == null) return;
+            var door = holder.GetComponentInChildren<Evolution.Dungeon.Door>(true);
+            if (door != null)
+                door.gameObject.SetActive(active);
+            else
+                holder.gameObject.SetActive(active);
         }
     }
 }

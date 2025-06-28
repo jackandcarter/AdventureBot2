@@ -31,38 +31,118 @@ GameObject:
   m_Name: NorthDoor
   m_Component:
   - component: {fileID: 7}
+  - component: {fileID: 14} # MeshFilter
+  - component: {fileID: 15} # MeshRenderer
+  - component: {fileID: 16} # BoxCollider
+  - component: {fileID: 17} # Door
 --- !u!4 &7
 Transform:
   m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
+--- !u!33 &14
+MeshFilter:
+  m_Mesh: {fileID: 4300000, guid: 9fd342e1-292d-4053-a416-adf5458ec407, type: 3}
+--- !u!23 &15
+MeshRenderer:
+  m_Materials: []
+--- !u!65 &16
+BoxCollider:
+  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2, z: 0.25}
+--- !u!114 &17
+MonoBehaviour:
+  m_Script: {fileID: 11500000, guid: b119e26a-88d1-4f8d-a5bd-82811becb70e, type: 3}
+  locked: 0
+  animator: {fileID: 0}
+  doorCollider: {fileID: 16}
 --- !u!1 &8
 GameObject:
   m_Name: EastDoor
   m_Component:
   - component: {fileID: 9}
+  - component: {fileID: 18} # MeshFilter
+  - component: {fileID: 19} # MeshRenderer
+  - component: {fileID: 20} # BoxCollider
+  - component: {fileID: 21} # Door
 --- !u!4 &9
 Transform:
   m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
+--- !u!33 &18
+MeshFilter:
+  m_Mesh: {fileID: 4300000, guid: 9fd342e1-292d-4053-a416-adf5458ec407, type: 3}
+--- !u!23 &19
+MeshRenderer:
+  m_Materials: []
+--- !u!65 &20
+BoxCollider:
+  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2, z: 0.25}
+--- !u!114 &21
+MonoBehaviour:
+  m_Script: {fileID: 11500000, guid: b119e26a-88d1-4f8d-a5bd-82811becb70e, type: 3}
+  locked: 0
+  animator: {fileID: 0}
+  doorCollider: {fileID: 20}
 --- !u!1 &10
 GameObject:
   m_Name: SouthDoor
   m_Component:
   - component: {fileID: 11}
+  - component: {fileID: 22} # MeshFilter
+  - component: {fileID: 23} # MeshRenderer
+  - component: {fileID: 24} # BoxCollider
+  - component: {fileID: 25} # Door
 --- !u!4 &11
 Transform:
   m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
+--- !u!33 &22
+MeshFilter:
+  m_Mesh: {fileID: 4300000, guid: 9fd342e1-292d-4053-a416-adf5458ec407, type: 3}
+--- !u!23 &23
+MeshRenderer:
+  m_Materials: []
+--- !u!65 &24
+BoxCollider:
+  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2, z: 0.25}
+--- !u!114 &25
+MonoBehaviour:
+  m_Script: {fileID: 11500000, guid: b119e26a-88d1-4f8d-a5bd-82811becb70e, type: 3}
+  locked: 0
+  animator: {fileID: 0}
+  doorCollider: {fileID: 24}
 --- !u!1 &12
 GameObject:
   m_Name: WestDoor
   m_Component:
   - component: {fileID: 13}
+  - component: {fileID: 26} # MeshFilter
+  - component: {fileID: 27} # MeshRenderer
+  - component: {fileID: 28} # BoxCollider
+  - component: {fileID: 29} # Door
 --- !u!4 &13
 Transform:
   m_LocalPosition: {x: -5, y: 0, z: 0}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
+--- !u!33 &26
+MeshFilter:
+  m_Mesh: {fileID: 4300000, guid: 9fd342e1-292d-4053-a416-adf5458ec407, type: 3}
+--- !u!23 &27
+MeshRenderer:
+  m_Materials: []
+--- !u!65 &28
+BoxCollider:
+  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2, z: 0.25}
+--- !u!114 &29
+MonoBehaviour:
+  m_Script: {fileID: 11500000, guid: b119e26a-88d1-4f8d-a5bd-82811becb70e, type: 3}
+  locked: 0
+  animator: {fileID: 0}
+  doorCollider: {fileID: 28}
