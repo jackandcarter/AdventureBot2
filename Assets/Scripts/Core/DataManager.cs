@@ -14,6 +14,7 @@ namespace Evolution.Core
         [SerializeField] private ShopDatabase shopDatabase;
         [SerializeField] private ClassDatabase classDatabase;
         [SerializeField] private ItemDatabase itemDatabase;
+        [SerializeField] private StatsDatabase statsDatabase;
 
         private const string DataPath = "Data/";
 
@@ -29,6 +30,8 @@ namespace Evolution.Core
                 classDatabase = Resources.Load<ClassDatabase>(DataPath + "ClassDatabase");
             if (itemDatabase == null)
                 itemDatabase = Resources.Load<ItemDatabase>(DataPath + "ItemDatabase");
+            if (statsDatabase == null)
+                statsDatabase = Resources.Load<StatsDatabase>(DataPath + "StatsDatabase");
         }
 
         public RoomDatabase GetRoomDatabase() => roomDatabase;
@@ -36,5 +39,6 @@ namespace Evolution.Core
         public ShopDatabase GetShopDatabase() => shopDatabase;
         public ClassDatabase GetClassDatabase() => classDatabase;
         public ItemDatabase GetItemDatabase() => itemDatabase;
+        public StatsDatabase GetStatsDatabase() => statsDatabase;
     }
 }

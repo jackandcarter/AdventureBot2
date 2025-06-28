@@ -52,13 +52,17 @@ namespace Evolution.Data
     }
 
     [System.Serializable]
+    public class ClassStat
+    {
+        public StatDefinition Stat;
+        public float Value;
+    }
+
+    [System.Serializable]
     public class PlayerClass
     {
         public string ClassName;
-        public int BaseHp = 10;
-        public int BaseAttack = 1;
-        public int BaseDefense = 0;
-        public float BaseSpeed = 1f;
+        public List<ClassStat> Stats = new();
         public List<Ability> Abilities = new();
     }
 
