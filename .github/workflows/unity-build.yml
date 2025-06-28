@@ -1,0 +1,23 @@
+name: Unity Build
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Unity
+        uses: game-ci/unity-setup@v2
+        with:
+          unityVersion: 6000.1.8f1
+      - name: Build Linux
+        run: |
+          Unity -batchmode -nographics -quit \
+            -projectPath "${{ github.workspace }}" \
+            -buildTarget StandaloneLinux64 \
+            -logFile build.log
