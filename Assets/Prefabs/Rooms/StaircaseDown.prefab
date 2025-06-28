@@ -23,10 +23,10 @@ MeshRenderer:
 --- !u!114 &5
 MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef45e461-e3f6-4885-ad5b-be7f7d37d9a1, type: 3}
-  NorthDoor: {fileID: 7}
-  EastDoor: {fileID: 9}
-  SouthDoor: {fileID: 11}
-  WestDoor: {fileID: 13}
+  NorthDoor: {fileID: 17}
+  EastDoor: {fileID: 21}
+  SouthDoor: {fileID: 25}
+  WestDoor: {fileID: 29}
 --- !u!1 &6
 GameObject:
   m_Name: NorthDoor
