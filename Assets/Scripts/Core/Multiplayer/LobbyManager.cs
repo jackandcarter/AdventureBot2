@@ -16,6 +16,8 @@ namespace Evolution.Core.Multiplayer
 
         [SerializeField] private SessionManager sessionManager;
 
+        public event System.Action<int, ulong> OnPlayerJoined;
+
         private void Awake()
         {
             if (NetworkManager.Singleton == null)
@@ -25,10 +27,10 @@ namespace Evolution.Core.Multiplayer
         /// <summary>
         /// Create a new lobby and start hosting if needed.
         /// </summary>
-        public Lobby CreateLobby(string name, int ownerId, GameType type, string difficulty)
+        public Lobby CreateLobby(string name, int ownerId, GameType type, string difficulty, string password = null)
         {
             int id = nextLobbyId++;
-            var lobby = new Lobby { LobbyId = id, Name = name };
+            var lobby = new Lobby { LobbyId = id, Name = name, Password = password };
             lobbies[id] = lobby;
 
             lobby.Session = new SessionData
@@ -57,15 +59,19 @@ namespace Evolution.Core.Multiplayer
         /// <summary>
         /// Join an existing lobby as a client.
         /// </summary>
-        public bool JoinLobby(int lobbyId, ulong clientId)
+        public bool JoinLobby(int lobbyId, ulong clientId, string password = null)
         {
             if (!lobbies.TryGetValue(lobbyId, out var lobby))
+                return false;
+
+            if (!string.IsNullOrEmpty(lobby.Password) && lobby.Password != password)
                 return false;
 
             if (!lobby.Players.Contains(clientId))
             {
                 lobby.Players.Add(clientId);
                 lobby.Session?.Players.Add((int)clientId);
+                OnPlayerJoined?.Invoke(lobbyId, clientId);
             }
 
             if (!NetworkManager.Singleton.IsClient)
@@ -93,6 +99,7 @@ namespace Evolution.Core.Multiplayer
         public int LobbyId;
         public string Name;
         public List<ulong> Players = new();
+        public string Password;
         public SessionData Session;
     }
 }

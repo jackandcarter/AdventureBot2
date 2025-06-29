@@ -57,7 +57,7 @@ namespace Evolution.UI
             }
             else
             {
-                lobbyManager?.CreateLobby("Lobby" + ownerId, ownerId, type, gameManager.Difficulty);
+                lobbyManager?.CreateLobby("Lobby" + ownerId, ownerId, type, gameManager.Difficulty, null);
                 gameManager.StartNewGame(ownerId);
             }
 

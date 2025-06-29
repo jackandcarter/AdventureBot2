@@ -85,8 +85,8 @@ namespace Evolution.UI
                 return;
 
             string name = lobbyNameInput != null ? lobbyNameInput.text : $"Lobby{Random.Range(1000,9999)}";
-            currentLobby = lobbyManager.CreateLobby(name, (int)NetworkManager.Singleton.LocalClientId, GameType.Multiplayer, "Easy");
-            // passwordInput is not used by LobbyManager yet, but saved for future use
+            string pwd = passwordInput != null ? passwordInput.text : null;
+            currentLobby = lobbyManager.CreateLobby(name, (int)NetworkManager.Singleton.LocalClientId, GameType.Multiplayer, "Easy", pwd);
             Refresh();
             if (classSelectPanel != null)
                 classSelectPanel.gameObject.SetActive(true);
@@ -96,7 +96,8 @@ namespace Evolution.UI
         {
             if (lobbyManager == null)
                 return;
-            if (lobbyManager.JoinLobby(lobbyId, NetworkManager.Singleton.LocalClientId))
+            string pwd = passwordInput != null ? passwordInput.text : null;
+            if (lobbyManager.JoinLobby(lobbyId, NetworkManager.Singleton.LocalClientId, pwd))
             {
                 currentLobby = lobbyManager.ListLobbies().FirstOrDefault(l => l.LobbyId == lobbyId);
                 if (classSelectPanel != null)
