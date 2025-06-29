@@ -56,3 +56,27 @@ Organising these under an empty "Managers" GameObject keeps the hierarchy tidy.
 
 Play the scene and call `GameManager.StartNewGame` from another script or through the inspector to generate a dungeon. Use the on‑screen skill buttons during combat. Databases and prefabs can be adjusted without code changes.
 
+## 5. Menu and Lobby Scenes
+
+Create two additional scenes called **MainMenu** and **Lobby**. These use
+TextMeshPro for all text elements so ensure **TMP Essentials** are imported from
+the package manager before creating UI objects.
+
+1. **MainMenu Scene**
+   - Add a `Canvas` with a `MainMenuUI` component.
+   - Create buttons for New Game, Load Game, Tutorial and High Scores and assign
+     them to the corresponding fields on `MainMenuUI` in the inspector.
+   - Reference a `GameSetupUI` object for the new game flow and a
+     `SessionManager` for loading saved sessions.
+
+2. **Lobby Scene**
+   - Add a `Canvas` with a `LobbyUI` component and optional class selection
+     panel.
+   - Create refresh, create and start buttons and connect them to the serialized
+     fields on `LobbyUI`.
+   - Set the lobby item prefab and content container for listing available
+     lobbies.
+
+Link the menu's buttons to load the Lobby scene so players can create or join a
+session before starting gameplay.
+
