@@ -119,6 +119,7 @@
     <Compile Include="Assets/Scripts/Combat/BattleManager.cs" />
     <Compile Include="Assets/Scripts/Dungeon/RoomBuilder.cs" />
     <Compile Include="Assets/Scripts/UI/UIManager.cs" />
+    <Compile Include="Assets/Scripts/UI/SkillsUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

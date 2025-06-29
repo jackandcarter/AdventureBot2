@@ -107,6 +107,11 @@ namespace Evolution.Combat
         public BattleState State = new();
 
         public event Action OnUIUpdate;
+        public event Action<int, List<Ability>> OnSkillsRequested;
+        public event Action OnSkillsClosed;
+
+        private Ability pendingAbility;
+        public void ChooseAbility(Ability ability) => pendingAbility = ability;
 
         private void Awake()
         {
@@ -151,9 +156,28 @@ namespace Evolution.Combat
             State.Paused = true;
             var player = State.Players[playerId];
             player.TickStatus();
+
+            // decrement cooldowns each turn
+            var keys = new List<string>(player.Cooldowns.Keys);
+            foreach (var key in keys)
+                player.Cooldowns[key] = Mathf.Max(player.Cooldowns[key] - 1f, 0f);
+
             OnUIUpdate?.Invoke();
-            // waiting for external input in real game
-            yield return null;
+
+            pendingAbility = null;
+            OnSkillsRequested?.Invoke(playerId, player.Abilities);
+            yield return new WaitUntil(() => pendingAbility != null);
+
+            var ability = pendingAbility;
+            pendingAbility = null;
+            OnSkillsClosed?.Invoke();
+
+            Combatant target = ability.TargetSelf ? player : State.Enemy;
+            ApplyAbility(player, target, ability);
+            player.Cooldowns[ability.Name] = ability.Cooldown;
+            player.ATB = 0f;
+
+            State.Paused = false;
         }
 
         private IEnumerator EnemyTurn()
