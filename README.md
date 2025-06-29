@@ -44,3 +44,14 @@ classes defined in `ClassDatabase`, review their stats and confirm before
 spawning. The chosen class is applied through `GameManager.BuildPlayer` when the
 game starts.
 
+### Main Menu
+
+`MainMenuUI` drives the main menu scene. It exposes New Game, Load Game,
+Tutorial and High Scores buttons which can be wired up in the inspector. The
+New Game option opens the game setup panel while Load Game calls
+`SessionManager.LoadSession`.
+
+Together with `LobbyUI` these screens form the entry point for players. From the
+main menu you can browse or create lobbies and then launch the gameplay scene
+once everyone is ready.
+
