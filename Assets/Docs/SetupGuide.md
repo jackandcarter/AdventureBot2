@@ -80,3 +80,25 @@ the package manager before creating UI objects.
 Link the menu's buttons to load the Lobby scene so players can create or join a
 session before starting gameplay.
 
+### Game Setup Panel
+
+Before building this UI, import **TMP Essentials** from the package manager so
+TextMeshPro components are available. Create a panel containing dropdowns for
+**Difficulty** and **Game Type**, plus Confirm and Cancel buttons. Attach the
+`GameSetupUI` script and assign your `GameManager` and `LobbyManager` objects in
+the inspector.
+
+### Class Selection Panel
+
+Add another panel with a dropdown for classes, a `TMP_Text` field to display the
+stats, an image for the class portrait and a Confirm button. Use the
+`ClassSelectUI` script, wiring up references to `DataManager` and `GameManager`.
+
+### Lobby Item Prefab
+
+Finally create a prefab consisting of a `Button` with a child `TMP_Text` element.
+`LobbyUI` uses this prefab when listing available sessions in the lobby.
+
+Add **MainMenu**, **Lobby** and **SampleScene** to **File → Build Settings** in
+that order before testing.
+
