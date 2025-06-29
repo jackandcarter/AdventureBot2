@@ -126,6 +126,24 @@ namespace Evolution.Combat
         public ATBManager AtbManager;
         public BattleState State = new();
 
+        public enum AIDifficulty { Easy, Normal, Hard }
+        [SerializeField]
+        public AIDifficulty Difficulty = AIDifficulty.Normal;
+
+        private float Aggressiveness
+        {
+            get
+            {
+                return Difficulty switch
+                {
+                    AIDifficulty.Easy => 0.5f,
+                    AIDifficulty.Normal => 1f,
+                    AIDifficulty.Hard => 1.5f,
+                    _ => 1f,
+                };
+            }
+        }
+
         public event Action OnUIUpdate;
         public event Action<int, List<Ability>> OnSkillsRequested;
         public event Action OnSkillsClosed;
@@ -236,20 +254,29 @@ namespace Evolution.Combat
 
         private void ApplyEnemyAI()
         {
-            var ability = ChooseEnemyAbility();
+            var target = ChooseEnemyTarget();
+            var ability = ChooseEnemyAbility(target);
             if (ability == null)
                 return;
 
-            Combatant target;
-            if (ability.TargetSelf)
-                target = State.Enemy;
-            else
-                target = State.Players[State.Players.Keys.First()]; // simple: target first player
+            Combatant abilityTarget = ability.TargetSelf ? State.Enemy : target;
+            if (abilityTarget == null)
+                return;
 
-            ApplyAbility(State.Enemy, target, ability);
+            ApplyAbility(State.Enemy, abilityTarget, ability);
         }
 
-        private Ability ChooseEnemyAbility()
+        private Combatant ChooseEnemyTarget()
+        {
+            var alive = State.Players.Values.Where(p => p.Hp > 0).ToList();
+            if (alive.Count == 0)
+                return null;
+            if (Difficulty == AIDifficulty.Easy)
+                return alive[UnityEngine.Random.Range(0, alive.Count)];
+            return alive.OrderBy(p => p.Hp).First();
+        }
+
+        private Ability ChooseEnemyAbility(Combatant target)
         {
             var enemy = State.Enemy;
             if (enemy == null)
@@ -270,16 +297,41 @@ namespace Evolution.Combat
                 enemy.Abilities.Add(basic);
             }
 
-            foreach (var ability in enemy.Abilities)
+            var available = enemy.Abilities
+                .Where(a => !enemy.Cooldowns.TryGetValue(a.Name, out float cd) || cd <= 0f)
+                .ToList();
+            if (available.Count == 0)
+                return null;
+
+            float bestScore = float.NegativeInfinity;
+            Ability best = null;
+            foreach (var ability in available)
             {
-                if (!enemy.Cooldowns.TryGetValue(ability.Name, out float cd) || cd <= 0f)
+                float score = 0f;
+                if (ability.Heal > 0 && ability.TargetSelf)
                 {
-                    enemy.Cooldowns[ability.Name] = ability.Cooldown;
-                    return ability;
+                    float missing = enemy.MaxHp - enemy.Hp;
+                    score = missing * ability.Heal;
+                }
+                else if (target != null)
+                {
+                    var tgt = ability.TargetSelf ? enemy : target;
+                    score = CombatFormulas.CalculateDamage(enemy, tgt, ability);
+                }
+
+                score *= Aggressiveness;
+
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    best = ability;
                 }
             }
 
-            return null;
+            if (best != null)
+                enemy.Cooldowns[best.Name] = best.Cooldown;
+
+            return best;
         }
 
         public void ApplyAbility(Combatant user, Combatant target, Ability ability)
