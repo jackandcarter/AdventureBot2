@@ -7,6 +7,7 @@ namespace Evolution.Editor
     public class StatsEditor : EditorWindow
     {
         private StatsDatabase database;
+        private Vector2 scroll;
 
         [MenuItem("Adventure/Stats Editor")]
         public static void Open()
@@ -25,10 +26,30 @@ namespace Evolution.Editor
                 return;
             }
 
-            var so = new SerializedObject(database);
-            so.Update();
-            EditorGUILayout.PropertyField(so.FindProperty("Stats"), true);
-            so.ApplyModifiedProperties();
+            scroll = EditorGUILayout.BeginScrollView(scroll);
+
+            for (int i = 0; i < database.Stats.Count; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                database.Stats[i] = (StatDefinition)EditorGUILayout.ObjectField(database.Stats[i], typeof(StatDefinition), false);
+                if (GUILayout.Button("Remove", GUILayout.Width(60)))
+                {
+                    database.Stats.RemoveAt(i);
+                    i--;
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+
+            if (GUILayout.Button("Add Stat Reference"))
+                database.Stats.Add(null);
+
+            if (GUILayout.Button("Create New Stat"))
+                CreateStat();
+
+            EditorGUILayout.EndScrollView();
+
+            if (GUI.changed)
+                EditorUtility.SetDirty(database);
         }
 
         private void CreateDatabase()
@@ -38,6 +59,19 @@ namespace Evolution.Editor
             string path = AssetDatabase.GenerateUniqueAssetPath("Assets/Data/StatsDatabase.asset");
             AssetDatabase.CreateAsset(database, path);
             AssetDatabase.SaveAssets();
+        }
+
+        private void CreateStat()
+        {
+            EnsureDataFolder();
+            if (!AssetDatabase.IsValidFolder("Assets/Data/Stats"))
+                AssetDatabase.CreateFolder("Assets/Data", "Stats");
+
+            var stat = ScriptableObject.CreateInstance<StatDefinition>();
+            string path = AssetDatabase.GenerateUniqueAssetPath("Assets/Data/Stats/NewStat.asset");
+            AssetDatabase.CreateAsset(stat, path);
+            AssetDatabase.SaveAssets();
+            database.Stats.Add(stat);
         }
 
         private void EnsureDataFolder()
