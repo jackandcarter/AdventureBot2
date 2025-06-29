@@ -11,5 +11,7 @@ namespace Evolution.Combat
         public StatusEffect Effect;
         public float Cooldown;
         public bool TargetSelf;
+        public bool AreaOfEffect;
+        public Element Element;
     }
 }

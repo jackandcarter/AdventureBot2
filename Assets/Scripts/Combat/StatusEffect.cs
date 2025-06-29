@@ -12,5 +12,7 @@ namespace Evolution.Combat
         public int HealPerTurn;
         public float SpeedUp;
         public float SpeedDown;
+        public int AttackBonus;
+        public int DefenseBonus;
     }
 }
