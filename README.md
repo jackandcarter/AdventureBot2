@@ -31,3 +31,11 @@ host or join sessions.
 
 For a step-by-step tutorial on creating a playable test scene and required assets, see [`Assets/Docs/SetupGuide.md`](Assets/Docs/SetupGuide.md).
 
+### LobbyUI
+
+`LobbyUI` provides a basic lobby browser and host controls. It queries
+`LobbyManager.ListLobbies()` and populates a scrollable list with join
+buttons. A create lobby form allows specifying a name and optional password.
+Hosts can start the game at any time (up to eight players) which will load the
+configured gameplay scene for all members while keeping the lobby joinable.
+
