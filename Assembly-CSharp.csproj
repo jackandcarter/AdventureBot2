@@ -121,6 +121,7 @@
     <Compile Include="Assets/Scripts/UI/UIManager.cs" />
     <Compile Include="Assets/Scripts/UI/SkillsUI.cs" />
     <Compile Include="Assets/Scripts/UI/ShopUI.cs" />
+    <Compile Include="Assets/Scripts/UI/MainMenuUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
