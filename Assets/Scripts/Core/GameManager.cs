@@ -121,8 +121,8 @@ namespace Evolution.Core
                 case RoomType.Boss:
                     if (battleManager != null)
                     {
-                        var enemy = new Combatant { Id = 0, Hp = 10, MaxHp = 10, Speed = 1f };
-                        var player = new Combatant { Id = currentSession.OwnerId, Hp = 10, MaxHp = 10, Speed = 1f };
+                        var enemy = new Combatant { Id = 0, Hp = 10, MaxHp = 10, Speed = 1f, Attack = 1, Defense = 0 };
+                        var player = new Combatant { Id = currentSession.OwnerId, Hp = 10, MaxHp = 10, Speed = 1f, Attack = 1, Defense = 0 };
                         battleManager.StartBattle(enemy, new List<Combatant> { player });
                     }
                     break;

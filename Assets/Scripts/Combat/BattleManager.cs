@@ -13,12 +13,32 @@ namespace Evolution.Combat
         public int Id;
         public int Hp;
         public int MaxHp;
+        public int Attack;
+        public int Defense;
         public float Speed;
         public float ATB;
         public float ATBMax = 5f;
         public List<Ability> Abilities = new();
         public Dictionary<string, float> Cooldowns = new();
         public List<StatusEffect> Effects = new();
+
+        public float GetAttackBonus()
+        {
+            float bonus = 0f;
+            foreach (var se in Effects)
+                bonus += se.AttackBonus;
+            return bonus;
+        }
+
+        public float GetDefenseBonus()
+        {
+            float bonus = 0f;
+            foreach (var se in Effects)
+                bonus += se.DefenseBonus;
+            return bonus;
+        }
+
+        public Dictionary<Element, float> Resistances = new();
 
         public float GetSpeedBonus()
         {
@@ -242,24 +262,51 @@ namespace Evolution.Combat
         public void ApplyAbility(Combatant user, Combatant target, Ability ability)
         {
             if (ability == null) return;
-            if (ability.Damage > 0)
-            {
-                target.Hp = Mathf.Max(target.Hp - ability.Damage, 0);
-            }
-            if (ability.Heal > 0)
+
+            var targets = new List<Combatant>();
+            if (ability.AreaOfEffect)
             {
                 if (ability.TargetSelf)
-                    user.Hp = Mathf.Min(user.Hp + ability.Heal, user.MaxHp);
+                {
+                    if (user == State.Enemy)
+                        targets.Add(State.Enemy);
+                    else
+                        targets.AddRange(State.Players.Values);
+                }
                 else
-                    target.Hp = Mathf.Min(target.Hp + ability.Heal, target.MaxHp);
+                {
+                    if (user == State.Enemy)
+                        targets.AddRange(State.Players.Values);
+                    else
+                        targets.Add(State.Enemy);
+                }
             }
-            if (ability.Effect != null && ability.Effect.Remaining > 0)
+            else
             {
-                var effTarget = ability.TargetSelf ? user : target;
-                effTarget.Effects.Add(ability.Effect);
+                targets.Add(ability.TargetSelf ? user : target);
             }
-            if (OnUIUpdate != null)
-                OnUIUpdate.Invoke();
+
+            foreach (var t in targets)
+            {
+                if (ability.Damage > 0)
+                {
+                    int dmg = CombatFormulas.CalculateDamage(user, t, ability);
+                    t.Hp = Mathf.Max(t.Hp - dmg, 0);
+                }
+                if (ability.Heal > 0)
+                {
+                    int heal = CombatFormulas.CalculateHealing(user, ability);
+                    t.Hp = Mathf.Min(t.Hp + heal, t.MaxHp);
+                }
+                if (ability.Effect != null && ability.Effect.Remaining > 0)
+                {
+                    var effect = CombatFormulas.BuildStatusEffect(ability.Effect);
+                    if (effect != null)
+                        t.Effects.Add(effect);
+                }
+            }
+
+            OnUIUpdate?.Invoke();
         }
     }
 }
