@@ -22,6 +22,7 @@ namespace Evolution.Core
         [SerializeField] private DataManager dataManager;
         [SerializeField] private ShopUI shopUI;
         [SerializeField] private UIManager uiManager;
+        [SerializeField] private MapUI mapUI;
         [SerializeField] private string difficulty = "Easy";
 
         [Serializable]
@@ -146,6 +147,8 @@ namespace Evolution.Core
                     currentSession.CurrentPosition = next;
                     EnterRoom(next);
                     sessionManager.SaveSession(currentSession);
+                    if (mapUI != null)
+                        mapUI.DrawFloor(currentSession.Dungeon.Floors[currentSession.CurrentFloor - 1], currentSession.CurrentPosition);
                     return;
                 }
             }
@@ -352,6 +355,8 @@ namespace Evolution.Core
                 spawnedRooms.Add(inst);
                 roomLookup[room.Coord] = inst;
             }
+            if (mapUI != null)
+                mapUI.DrawFloor(currentSession.Dungeon.Floors[floorIndex], currentSession.CurrentPosition);
         }
 
         private void SetupDoors(RoomPrefab roomPrefab, RoomData data)
