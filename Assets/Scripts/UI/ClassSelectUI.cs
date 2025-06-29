@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using Unity.Netcode;
 using Evolution.Core;
 using Evolution.Data;
@@ -19,7 +20,7 @@ namespace Evolution.UI
         [SerializeField] private GameManager gameManager;
         [SerializeField] private Dropdown classDropdown;
         [SerializeField] private Image classImage;
-        [SerializeField] private Text statsText;
+        [SerializeField] private TMP_Text statsText;
         [SerializeField] private Button confirmButton;
         [SerializeField] private List<Sprite> classSprites = new();
 

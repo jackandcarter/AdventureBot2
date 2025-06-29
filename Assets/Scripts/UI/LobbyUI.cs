@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
 using Evolution.Core.Multiplayer;
@@ -67,7 +68,7 @@ namespace Evolution.UI
             foreach (var lobby in lobbies)
             {
                 var item = Instantiate(lobbyItemPrefab, lobbyListRoot);
-                var text = item.GetComponentInChildren<Text>();
+                var text = item.GetComponentInChildren<TMP_Text>();
                 if (text != null)
                     text.text = $"{lobby.Name} ({lobby.Players.Count}/8)";
                 var btn = item.GetComponentInChildren<Button>();

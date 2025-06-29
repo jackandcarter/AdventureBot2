@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using Evolution.Core;
 using Evolution.Data;
 
@@ -41,7 +42,7 @@ namespace Evolution.UI
             foreach (var item in shop.Items.Where(i => i != null))
             {
                 var btn = Instantiate(itemButtonPrefab, buttonRoot);
-                var text = btn.GetComponentInChildren<Text>();
+                var text = btn.GetComponentInChildren<TMP_Text>();
                 if (text != null)
                     text.text = item.Name;
                 var data = item; // local capture

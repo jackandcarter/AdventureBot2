@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 using Evolution.Dungeon;
 
 namespace Evolution.UI
@@ -18,10 +18,10 @@ namespace Evolution.UI
         [SerializeField] private CanvasGroup menuCanvas;
 
         [Header("Room Elements")]
-        [SerializeField] private Text roomDescription;
+        [SerializeField] private TMP_Text roomDescription;
 
         [Header("Battle Elements")]
-        [SerializeField] private Text battleLog;
+        [SerializeField] private TMP_Text battleLog;
 
         [Header("Theme")]
         [SerializeField] private Color themeColor = Color.white;
