@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Evolution.Dungeon;
 using Evolution.Combat;
+using Evolution.Data;
+using Evolution.UI;
 using System.Linq;
 
 namespace Evolution.Core
@@ -17,6 +19,8 @@ namespace Evolution.Core
         [SerializeField] private DungeonGenerator generator;
         [SerializeField] private BattleManager battleManager;
         [SerializeField] private SessionManager sessionManager;
+        [SerializeField] private DataManager dataManager;
+        [SerializeField] private ShopUI shopUI;
         [SerializeField] private string difficulty = "Easy";
 
         [Serializable]
@@ -129,6 +133,14 @@ namespace Evolution.Core
                 case RoomType.Locked:
                     HandleLockedRoom(roomPrefab);
                     break;
+                case RoomType.Shop:
+                    if (shopUI != null && dataManager != null)
+                    {
+                        var db = dataManager.GetShopDatabase();
+                        if (db != null && db.Shops.Count > 0)
+                            shopUI.OpenShop(db.Shops[0]);
+                    }
+                    break;
                 case RoomType.Treasure:
                     Debug.Log("Found a treasure chest!");
                     break;
@@ -233,6 +245,12 @@ namespace Evolution.Core
                 if (roomPrefab.TryGetDoor(dir, out var door))
                     SetDoorActive(door, true);
             }
+        }
+
+        public void AddItem(ItemData item)
+        {
+            if (item != null)
+                inventory.AddItem(item);
         }
 
         private void SetDoorActive(Door door, bool active)
