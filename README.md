@@ -39,3 +39,8 @@ buttons. A create lobby form allows specifying a name and optional password.
 Hosts can start the game at any time (up to eight players) which will load the
 configured gameplay scene for all members while keeping the lobby joinable.
 
+Joining a lobby now displays a class selection panel. Players choose from the
+classes defined in `ClassDatabase`, review their stats and confirm before
+spawning. The chosen class is applied through `GameManager.BuildPlayer` when the
+game starts.
+

@@ -32,6 +32,9 @@ namespace Evolution.Core
         /// <summary>Selected game type for the next session.</summary>
         public GameType GameType { get => gameType; set => gameType = value; }
 
+        /// <summary>Class chosen during setup for the local player.</summary>
+        public PlayerClass SelectedClass { get => selectedClass; set => selectedClass = value; }
+
         [Serializable]
         private class RoomPrefabEntry
         {
@@ -51,6 +54,7 @@ namespace Evolution.Core
 
         private SessionData currentSession;
         private Player player;
+        private PlayerClass selectedClass;
         private readonly Evolution.Inventory.Inventory inventory = new();
 
         private void Awake()
@@ -66,30 +70,37 @@ namespace Evolution.Core
                 battleManager.OnBattleEnded -= HandleBattleEnded;
         }
 
-        private void BuildPlayer(int ownerId)
+        public void BuildPlayer(int ownerId, PlayerClass cls)
         {
             player = new Player { Id = ownerId };
+            if (cls != null)
+            {
+                player.ClassName = cls.ClassName;
+                foreach (var cs in cls.Stats)
+                    if (cs != null && cs.Stat != null)
+                        player.SetStat(cs.Stat.Name, cs.Value);
+                player.Abilities = new List<Ability>(cls.Abilities);
+            }
+
             if (dataManager != null)
             {
-                var classDb = dataManager.GetClassDatabase();
                 var statsDb = dataManager.GetStatsDatabase();
-                if (classDb != null && classDb.Classes.Count > 0)
-                {
-                    var cls = classDb.Classes[0];
-                    player.ClassName = cls.ClassName;
-                    foreach (var cs in cls.Stats)
-                        if (cs.Stat != null)
-                            player.SetStat(cs.Stat.Name, cs.Value);
-                    player.Abilities = new List<Ability>(cls.Abilities);
-                }
-                if (statsDb != null && player.Stats.Count == 0)
+                if (statsDb != null)
                 {
                     foreach (var def in statsDb.Stats)
-                        if (def != null)
+                        if (def != null && !player.Stats.ContainsKey(def.Name))
                             player.SetStat(def.Name, def.DefaultValue);
                 }
             }
+
             player.CurrentHp = player.GetStat("MaxHp");
+        }
+
+        private void BuildPlayer(int ownerId)
+        {
+            var classDb = dataManager != null ? dataManager.GetClassDatabase() : null;
+            var cls = classDb != null && classDb.Classes.Count > 0 ? classDb.Classes[0] : null;
+            BuildPlayer(ownerId, cls);
         }
 
         private void HandleBattleEnded(bool victory)
@@ -109,7 +120,14 @@ namespace Evolution.Core
                 return;
             }
             BuildPrefabLookup();
-            BuildPlayer(ownerId);
+            var cls = selectedClass;
+            if (cls == null && dataManager != null)
+            {
+                var db = dataManager.GetClassDatabase();
+                if (db != null && db.Classes.Count > 0)
+                    cls = db.Classes[0];
+            }
+            BuildPlayer(ownerId, cls);
             currentSession = new SessionData
             {
                 SessionId = ownerId, // temporary id if no DB yet

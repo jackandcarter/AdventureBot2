@@ -23,6 +23,7 @@ namespace Evolution.UI
         [SerializeField] private Button createButton;
         [SerializeField] private Button startButton;
         [SerializeField] private string gameplayScene = "SampleScene";
+        [SerializeField] private ClassSelectUI classSelectPanel;
 
         private Lobby currentLobby;
 
@@ -87,6 +88,8 @@ namespace Evolution.UI
             currentLobby = lobbyManager.CreateLobby(name, (int)NetworkManager.Singleton.LocalClientId, GameType.Multiplayer, "Easy");
             // passwordInput is not used by LobbyManager yet, but saved for future use
             Refresh();
+            if (classSelectPanel != null)
+                classSelectPanel.gameObject.SetActive(true);
         }
 
         private void JoinLobby(int lobbyId)
@@ -96,6 +99,8 @@ namespace Evolution.UI
             if (lobbyManager.JoinLobby(lobbyId, NetworkManager.Singleton.LocalClientId))
             {
                 currentLobby = lobbyManager.ListLobbies().FirstOrDefault(l => l.LobbyId == lobbyId);
+                if (classSelectPanel != null)
+                    classSelectPanel.gameObject.SetActive(true);
             }
         }
 
