@@ -13,7 +13,7 @@ namespace Evolution.UI
         [SerializeField] private Button loadGameButton;
         [SerializeField] private Button tutorialButton;
         [SerializeField] private Button highScoresButton;
-        [SerializeField] private GameObject setupPanel;
+        [SerializeField] private GameSetupUI setupPanel;
         [SerializeField] private SessionManager sessionManager;
 
         private void Awake()
@@ -43,7 +43,7 @@ namespace Evolution.UI
         private void OpenSetup()
         {
             if (setupPanel != null)
-                setupPanel.SetActive(true);
+                setupPanel.gameObject.SetActive(true);
         }
 
         private void LoadGame()

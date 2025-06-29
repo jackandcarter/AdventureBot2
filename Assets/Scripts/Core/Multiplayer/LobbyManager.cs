@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Evolution.Core;
 
 namespace Evolution.Core.Multiplayer
 {
@@ -24,7 +25,7 @@ namespace Evolution.Core.Multiplayer
         /// <summary>
         /// Create a new lobby and start hosting if needed.
         /// </summary>
-        public Lobby CreateLobby(string name, int ownerId)
+        public Lobby CreateLobby(string name, int ownerId, GameType type, string difficulty)
         {
             int id = nextLobbyId++;
             var lobby = new Lobby { LobbyId = id, Name = name };
@@ -34,7 +35,8 @@ namespace Evolution.Core.Multiplayer
             {
                 SessionId = id,
                 OwnerId = ownerId,
-                Difficulty = "Normal",
+                Type = type,
+                Difficulty = difficulty,
                 CurrentFloor = 1,
                 CurrentPosition = Vector2Int.zero
             };

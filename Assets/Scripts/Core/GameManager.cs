@@ -24,6 +24,13 @@ namespace Evolution.Core
         [SerializeField] private UIManager uiManager;
         [SerializeField] private MapUI mapUI;
         [SerializeField] private string difficulty = "Easy";
+        [SerializeField] private GameType gameType = GameType.Solo;
+
+        /// <summary>Selected difficulty for the next session.</summary>
+        public string Difficulty { get => difficulty; set => difficulty = value; }
+
+        /// <summary>Selected game type for the next session.</summary>
+        public GameType GameType { get => gameType; set => gameType = value; }
 
         [Serializable]
         private class RoomPrefabEntry
@@ -107,6 +114,7 @@ namespace Evolution.Core
             {
                 SessionId = ownerId, // temporary id if no DB yet
                 OwnerId = ownerId,
+                Type = gameType,
                 Difficulty = difficulty,
                 CurrentFloor = 1,
                 CurrentPosition = Vector2Int.zero,
