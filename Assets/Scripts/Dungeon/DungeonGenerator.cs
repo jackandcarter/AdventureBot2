@@ -10,6 +10,7 @@ namespace Evolution.Dungeon
         Locked,
         Shop,
         Treasure,
+        Illusion,
         Boss,
         StaircaseUp,
         StaircaseDown,
@@ -48,6 +49,7 @@ namespace Evolution.Dungeon
         [SerializeField] private int lockedRoomsPerFloor = 1;
         [SerializeField] private int shopsPerFloor = 1;
         [SerializeField, Range(0f, 1f)] private float treasureChance = 0.2f;
+        [SerializeField, Range(0f, 1f)] private float illusionChance = 0.05f;
         [SerializeField] private int minLockDistance = 5;
         [SerializeField] private int minStairDistance = 6;
 
@@ -111,7 +113,9 @@ namespace Evolution.Dungeon
 
             foreach (var coord in interior)
             {
-                if (Random.value < treasureChance)
+                if (Random.value < illusionChance)
+                    roomTypes[coord] = RoomType.Illusion;
+                else if (Random.value < treasureChance)
                     roomTypes[coord] = RoomType.Treasure;
                 else
                     roomTypes.TryAdd(coord, RoomType.Monster);
