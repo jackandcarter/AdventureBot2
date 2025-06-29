@@ -126,7 +126,28 @@ namespace Evolution.Core
                 case RoomType.Boss:
                     if (battleManager != null)
                     {
-                        var enemy = new Combatant { Id = 0, Hp = 10, MaxHp = 10, Speed = 1f, Attack = 1, Defense = 0 };
+                        Combatant enemy = null;
+                        if (dataManager != null)
+                        {
+                            var db = dataManager.GetEnemyDatabase();
+                            if (db != null && db.Enemies.Count > 0)
+                            {
+                                var stats = db.Enemies[Random.Range(0, db.Enemies.Count)];
+                                enemy = new Combatant
+                                {
+                                    Id = 0,
+                                    Hp = stats.MaxHp,
+                                    MaxHp = stats.MaxHp,
+                                    Attack = stats.Attack,
+                                    Defense = stats.Defense,
+                                    Speed = stats.Speed,
+                                    Abilities = new List<Ability>(stats.Abilities)
+                                };
+                            }
+                        }
+
+                        enemy ??= new Combatant { Id = 0, Hp = 10, MaxHp = 10, Speed = 1f, Attack = 1, Defense = 0 };
+
                         var player = new Combatant { Id = currentSession.OwnerId, Hp = 10, MaxHp = 10, Speed = 1f, Attack = 1, Defense = 0 };
                         battleManager.StartBattle(enemy, new List<Combatant> { player });
                     }
@@ -144,6 +165,20 @@ namespace Evolution.Core
                     break;
                 case RoomType.Treasure:
                     Debug.Log("Found a treasure chest!");
+                    if (dataManager != null)
+                    {
+                        var db = dataManager.GetItemDatabase();
+                        if (db != null && db.Items.Count > 0)
+                        {
+                            var item = db.Items[Random.Range(0, db.Items.Count)];
+                            AddItem(item);
+                            Debug.Log($"Picked up {item.Name}");
+                        }
+                        else
+                        {
+                            Debug.Log("But it was empty...");
+                        }
+                    }
                     break;
                 case RoomType.Illusion:
                     HandleIllusionRoom(room);
