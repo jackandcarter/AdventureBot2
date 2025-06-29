@@ -16,6 +16,7 @@ namespace Evolution.UI
         [SerializeField] private Transform buttonRoot;
 
         private readonly List<Button> spawned = new();
+        private int activePlayerId = -1;
 
         private void OnEnable()
         {
@@ -23,6 +24,7 @@ namespace Evolution.UI
             {
                 battleManager.OnSkillsRequested += ShowSkills;
                 battleManager.OnSkillsClosed += HideSkills;
+                battleManager.OnUIUpdate += RefreshCooldowns;
             }
         }
 
@@ -32,6 +34,7 @@ namespace Evolution.UI
             {
                 battleManager.OnSkillsRequested -= ShowSkills;
                 battleManager.OnSkillsClosed -= HideSkills;
+                battleManager.OnUIUpdate -= RefreshCooldowns;
             }
         }
 
@@ -41,18 +44,21 @@ namespace Evolution.UI
             {
                 battleManager.OnSkillsRequested -= ShowSkills;
                 battleManager.OnSkillsClosed -= HideSkills;
+                battleManager.OnUIUpdate -= RefreshCooldowns;
             }
             battleManager = manager;
             if (battleManager != null)
             {
                 battleManager.OnSkillsRequested += ShowSkills;
                 battleManager.OnSkillsClosed += HideSkills;
+                battleManager.OnUIUpdate += RefreshCooldowns;
             }
         }
 
         private void ShowSkills(int playerId, List<Ability> abilities)
         {
             Clear();
+            activePlayerId = playerId;
             if (skillButtonPrefab == null || buttonRoot == null || abilities == null)
                 return;
 
@@ -62,14 +68,20 @@ namespace Evolution.UI
                 var text = btn.GetComponentInChildren<Text>();
                 if (text != null)
                     text.text = ab.Name;
-                btn.onClick.AddListener(() => SelectAbility(ab));
+                var ability = ab; // capture local
+                btn.onClick.AddListener(() => SelectAbility(ability));
                 spawned.Add(btn);
             }
+
+            RefreshCooldowns();
+            gameObject.SetActive(true);
         }
 
         private void HideSkills()
         {
+            gameObject.SetActive(false);
             Clear();
+            activePlayerId = -1;
         }
 
         private void Clear()
@@ -84,6 +96,27 @@ namespace Evolution.UI
         {
             if (battleManager != null)
                 battleManager.ChooseAbility(ability);
+        }
+
+        private void RefreshCooldowns()
+        {
+            if (battleManager == null || activePlayerId < 0)
+                return;
+
+            if (!battleManager.State.Players.TryGetValue(activePlayerId, out var player))
+                return;
+
+            for (int i = 0; i < spawned.Count && i < player.Abilities.Count; i++)
+            {
+                var ab = player.Abilities[i];
+                var btn = spawned[i];
+                if (btn == null) continue;
+                var text = btn.GetComponentInChildren<Text>();
+                float cd = player.Cooldowns.TryGetValue(ab.Name, out var c) ? c : 0f;
+                if (text != null)
+                    text.text = cd > 0 ? $"{ab.Name} ({cd:0})" : ab.Name;
+                btn.interactable = cd <= 0f;
+            }
         }
     }
 }
