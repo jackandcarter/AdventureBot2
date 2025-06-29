@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1
+GameObject:
+  m_Name: SkillsUI
+  m_IsActive: 0
+  m_Component:
+  - component: {fileID: 22400000}
+  - component: {fileID: 11400001}
+--- !u!224 &22400000
+RectTransform:
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+--- !u!114 &11400001
+MonoBehaviour:
+  m_Script: {fileID: 11500000, guid: b8bf144315cc452ea77f5eccbbc1d7ff, type: 3}
+  battleManager: {fileID: 0}
+  skillButtonPrefab: {fileID: 0}
+  buttonRoot: {fileID: 0}
