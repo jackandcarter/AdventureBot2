@@ -28,3 +28,6 @@ lobbyManager.LeaveLobby(lobby.LobbyId, clientId);
 
 Add a `NetworkManager`, `SessionManager` and `LobbyManager` to a scene to
 host or join sessions.
+
+For a step-by-step tutorial on creating a playable test scene and required assets, see [`Assets/Docs/SetupGuide.md`](Assets/Docs/SetupGuide.md).
+
