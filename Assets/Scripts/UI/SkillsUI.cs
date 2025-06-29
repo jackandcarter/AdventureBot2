@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using Evolution.Combat;
 
 namespace Evolution.UI
@@ -65,7 +66,7 @@ namespace Evolution.UI
             foreach (var ab in abilities)
             {
                 var btn = Instantiate(skillButtonPrefab, buttonRoot);
-                var text = btn.GetComponentInChildren<Text>();
+                var text = btn.GetComponentInChildren<TMP_Text>();
                 if (text != null)
                     text.text = ab.Name;
                 var ability = ab; // capture local
@@ -111,7 +112,7 @@ namespace Evolution.UI
                 var ab = player.Abilities[i];
                 var btn = spawned[i];
                 if (btn == null) continue;
-                var text = btn.GetComponentInChildren<Text>();
+                var text = btn.GetComponentInChildren<TMP_Text>();
                 float cd = player.Cooldowns.TryGetValue(ab.Name, out var c) ? c : 0f;
                 if (text != null)
                     text.text = cd > 0 ? $"{ab.Name} ({cd:0})" : ab.Name;
