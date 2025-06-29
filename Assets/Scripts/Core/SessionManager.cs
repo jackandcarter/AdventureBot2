@@ -59,6 +59,7 @@ namespace Evolution.Core
     {
         public int SessionId;
         public int OwnerId;
+        public GameType Type;
         public string Difficulty;
         public int CurrentFloor;
         public Vector2Int CurrentPosition;

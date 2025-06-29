@@ -116,12 +116,14 @@
     <Compile Include="Assets/Scripts/UI/MapUI.cs" />
     <Compile Include="Assets/Scripts/Core/GameManager.cs" />
     <Compile Include="Assets/Scripts/Core/Multiplayer/LobbyManager.cs" />
+    <Compile Include="Assets/Scripts/Core/GameType.cs" />
     <Compile Include="Assets/Scripts/Combat/BattleManager.cs" />
     <Compile Include="Assets/Scripts/Dungeon/RoomBuilder.cs" />
     <Compile Include="Assets/Scripts/UI/UIManager.cs" />
     <Compile Include="Assets/Scripts/UI/SkillsUI.cs" />
     <Compile Include="Assets/Scripts/UI/ShopUI.cs" />
     <Compile Include="Assets/Scripts/UI/MainMenuUI.cs" />
+    <Compile Include="Assets/Scripts/UI/GameSetupUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
