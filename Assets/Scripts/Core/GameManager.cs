@@ -42,11 +42,55 @@ namespace Evolution.Core
         public event Action<DungeonData> OnDungeonLoaded;
 
         private SessionData currentSession;
+        private Player player;
         private readonly Evolution.Inventory.Inventory inventory = new();
 
         private void Awake()
         {
             BuildPrefabLookup();
+            if (battleManager != null)
+                battleManager.OnBattleEnded += HandleBattleEnded;
+        }
+
+        private void OnDestroy()
+        {
+            if (battleManager != null)
+                battleManager.OnBattleEnded -= HandleBattleEnded;
+        }
+
+        private void BuildPlayer(int ownerId)
+        {
+            player = new Player { Id = ownerId };
+            if (dataManager != null)
+            {
+                var classDb = dataManager.GetClassDatabase();
+                var statsDb = dataManager.GetStatsDatabase();
+                if (classDb != null && classDb.Classes.Count > 0)
+                {
+                    var cls = classDb.Classes[0];
+                    player.ClassName = cls.ClassName;
+                    foreach (var cs in cls.Stats)
+                        if (cs.Stat != null)
+                            player.SetStat(cs.Stat.Name, cs.Value);
+                    player.Abilities = new List<Ability>(cls.Abilities);
+                }
+                if (statsDb != null && player.Stats.Count == 0)
+                {
+                    foreach (var def in statsDb.Stats)
+                        if (def != null)
+                            player.SetStat(def.Name, def.DefaultValue);
+                }
+            }
+            player.CurrentHp = player.GetStat("MaxHp");
+        }
+
+        private void HandleBattleEnded(bool victory)
+        {
+            if (player == null) return;
+            if (battleManager != null && battleManager.State.Players.TryGetValue(player.Id, out var c))
+                player.CurrentHp = c.Hp;
+            if (victory && dataManager != null)
+                player.AddExperience(10f, dataManager.GetStatsDatabase());
         }
 
         public void StartNewGame(int ownerId)
@@ -57,6 +101,7 @@ namespace Evolution.Core
                 return;
             }
             BuildPrefabLookup();
+            BuildPlayer(ownerId);
             currentSession = new SessionData
             {
                 SessionId = ownerId, // temporary id if no DB yet
@@ -148,8 +193,8 @@ namespace Evolution.Core
 
                         enemy ??= new Combatant { Id = 0, Hp = 10, MaxHp = 10, Speed = 1f, Attack = 1, Defense = 0 };
 
-                        var player = new Combatant { Id = currentSession.OwnerId, Hp = 10, MaxHp = 10, Speed = 1f, Attack = 1, Defense = 0 };
-                        battleManager.StartBattle(enemy, new List<Combatant> { player });
+                        var playerCombatant = player != null ? player.ToCombatant() : new Combatant { Id = currentSession.OwnerId, Hp = 10, MaxHp = 10, Speed = 1f, Attack = 1, Defense = 0 };
+                        battleManager.StartBattle(enemy, new List<Combatant> { playerCombatant });
                     }
                     break;
                 case RoomType.Locked:

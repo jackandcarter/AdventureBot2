@@ -129,6 +129,7 @@ namespace Evolution.Combat
         public event Action OnUIUpdate;
         public event Action<int, List<Ability>> OnSkillsRequested;
         public event Action OnSkillsClosed;
+        public event Action<bool> OnBattleEnded;
 
         private Ability pendingAbility;
         public void ChooseAbility(Ability ability) => pendingAbility = ability;
@@ -176,6 +177,11 @@ namespace Evolution.Combat
             State.Paused = true;
             var player = State.Players[playerId];
             player.TickStatus();
+            if (CheckEnd())
+            {
+                State.Paused = false;
+                yield break;
+            }
 
             // decrement cooldowns each turn
             var keys = new List<string>(player.Cooldowns.Keys);
@@ -197,6 +203,12 @@ namespace Evolution.Combat
             player.Cooldowns[ability.Name] = ability.Cooldown;
             player.ATB = 0f;
 
+            if (CheckEnd())
+            {
+                State.Paused = false;
+                yield break;
+            }
+
             State.Paused = false;
         }
 
@@ -204,10 +216,21 @@ namespace Evolution.Combat
         {
             State.Paused = true;
             State.Enemy.TickStatus();
+            if (CheckEnd())
+            {
+                State.Paused = false;
+                yield break;
+            }
             ApplyEnemyAI();
             OnUIUpdate?.Invoke();
             yield return new WaitForSeconds(1f);
             State.Enemy.ATB = 0f;
+
+            if (CheckEnd())
+            {
+                State.Paused = false;
+                yield break;
+            }
             State.Paused = false;
         }
 
@@ -307,6 +330,24 @@ namespace Evolution.Combat
             }
 
             OnUIUpdate?.Invoke();
+        }
+
+        private bool CheckEnd()
+        {
+            bool enemyDead = State.Enemy.Hp <= 0;
+            bool playersDead = true;
+            foreach (var p in State.Players.Values)
+                if (p.Hp > 0)
+                    playersDead = false;
+
+            if (enemyDead || playersDead)
+            {
+                bool victory = enemyDead && !playersDead;
+                EndBattle();
+                OnBattleEnded?.Invoke(victory);
+                return true;
+            }
+            return false;
         }
     }
 }
