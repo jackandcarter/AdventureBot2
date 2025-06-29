@@ -20,9 +20,9 @@ Lobbies are managed by the `LobbyManager` component found under
 each lobby maintains its own `SessionData`.
 
 ```
-var lobby = lobbyManager.CreateLobby("My Lobby", ownerId);
+var lobby = lobbyManager.CreateLobby("My Lobby", ownerId, GameType.Multiplayer, "Easy", "secret");
 var all = lobbyManager.ListLobbies();
-lobbyManager.JoinLobby(lobby.LobbyId, clientId);
+lobbyManager.JoinLobby(lobby.LobbyId, clientId, "secret");
 lobbyManager.LeaveLobby(lobby.LobbyId, clientId);
 ```
 

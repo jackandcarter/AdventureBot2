@@ -6,6 +6,8 @@ using Evolution.Combat;
 using Evolution.Data;
 using Evolution.UI;
 using System.Linq;
+using Unity.Netcode;
+using Evolution.Core.Multiplayer;
 
 namespace Evolution.Core
 {
@@ -23,6 +25,8 @@ namespace Evolution.Core
         [SerializeField] private ShopUI shopUI;
         [SerializeField] private UIManager uiManager;
         [SerializeField] private MapUI mapUI;
+        [SerializeField] private LobbyManager lobbyManager;
+        [SerializeField] private Multiplayer.PlayerController playerPrefab;
         [SerializeField] private string difficulty = "Easy";
         [SerializeField] private GameType gameType = GameType.Solo;
 
@@ -62,12 +66,20 @@ namespace Evolution.Core
             BuildPrefabLookup();
             if (battleManager != null)
                 battleManager.OnBattleEnded += HandleBattleEnded;
+            if (NetworkManager.Singleton != null)
+                NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
+            if (lobbyManager != null)
+                lobbyManager.OnPlayerJoined += HandleLobbyJoined;
         }
 
         private void OnDestroy()
         {
             if (battleManager != null)
                 battleManager.OnBattleEnded -= HandleBattleEnded;
+            if (NetworkManager.Singleton != null)
+                NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
+            if (lobbyManager != null)
+                lobbyManager.OnPlayerJoined -= HandleLobbyJoined;
         }
 
         public void BuildPlayer(int ownerId, PlayerClass cls)
@@ -142,6 +154,15 @@ namespace Evolution.Core
             SpawnFloor(currentSession.CurrentFloor - 1);
             OnDungeonLoaded?.Invoke(currentSession.Dungeon);
             EnterRoom(currentSession.CurrentPosition);
+
+            if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
+            {
+                foreach (var id in NetworkManager.Singleton.ConnectedClientsIds)
+                {
+                    if (NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(id) == null)
+                        SpawnPlayerForClient(id);
+                }
+            }
         }
 
         public void LoadSession(int sessionId)
@@ -412,6 +433,30 @@ namespace Evolution.Core
         {
             if (door == null) return;
             door.gameObject.SetActive(active);
+        }
+
+        private void HandleClientConnected(ulong clientId)
+        {
+            if (!NetworkManager.Singleton.IsServer)
+                return;
+            if (NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(clientId) == null)
+                SpawnPlayerForClient(clientId);
+        }
+
+        private void SpawnPlayerForClient(ulong clientId)
+        {
+            if (playerPrefab == null)
+                return;
+            var inst = Instantiate(playerPrefab);
+            inst.NetworkObject.SpawnAsPlayerObject(clientId, true);
+            if (currentSession != null && !currentSession.Players.Contains((int)clientId))
+                currentSession.Players.Add((int)clientId);
+        }
+
+        private void HandleLobbyJoined(int lobbyId, ulong clientId)
+        {
+            if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
+                SpawnPlayerForClient(clientId);
         }
     }
 }
