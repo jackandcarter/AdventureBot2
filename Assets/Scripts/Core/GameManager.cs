@@ -21,6 +21,7 @@ namespace Evolution.Core
         [SerializeField] private SessionManager sessionManager;
         [SerializeField] private DataManager dataManager;
         [SerializeField] private ShopUI shopUI;
+        [SerializeField] private UIManager uiManager;
         [SerializeField] private string difficulty = "Easy";
 
         [Serializable]
@@ -144,6 +145,9 @@ namespace Evolution.Core
                 case RoomType.Treasure:
                     Debug.Log("Found a treasure chest!");
                     break;
+                case RoomType.Illusion:
+                    HandleIllusionRoom(room);
+                    break;
                 case RoomType.StaircaseDown:
                     currentSession.CurrentFloor++;
                     currentSession.CurrentPosition = Vector2Int.zero;
@@ -187,6 +191,46 @@ namespace Evolution.Core
                 else
                 {
                     Debug.Log("The door is locked. A key is required.");
+                }
+            }
+        }
+
+        private void HandleIllusionRoom(RoomData room)
+        {
+            if (uiManager == null || room == null)
+                return;
+
+            // Randomly choose between a crystal puzzle or perception check
+            bool crystalPuzzle = Random.value < 0.5f;
+            if (crystalPuzzle)
+            {
+                var crystals = new List<object> { "Red", "Blue", "Green" };
+                int correct = Random.Range(0, crystals.Count);
+                uiManager.ShowIllusionCrystal(correct, crystals);
+                bool solved = Random.Range(0, crystals.Count) == correct;
+                if (solved)
+                {
+                    Debug.Log("You shatter the correct crystal and the illusion fades.");
+                    uiManager.ShowRoom(room);
+                }
+                else
+                {
+                    Debug.Log("Nothing happens. The illusion remains.");
+                }
+            }
+            else
+            {
+                var options = new List<int> { 1, 2, 3 };
+                uiManager.ShowIllusionEnemyCount(options);
+                bool success = Random.value > 0.5f;
+                if (success)
+                {
+                    Debug.Log("You see through the illusion!");
+                    uiManager.ShowRoom(room);
+                }
+                else
+                {
+                    Debug.Log("The phantasms confuse you.");
                 }
             }
         }
