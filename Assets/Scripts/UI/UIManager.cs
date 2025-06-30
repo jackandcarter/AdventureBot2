@@ -25,10 +25,10 @@ namespace Evolution.UI
 
         [Header("Theme")]
         [SerializeField] private Color themeColor = Color.white;
-        [SerializeField] private Font themeFont;
+        [SerializeField] private TMP_FontAsset themeFont;
 
         public Color ThemeColor { get => themeColor; set { themeColor = value; ApplyTheme(); } }
-        public Font ThemeFont { get => themeFont; set { themeFont = value; ApplyTheme(); } }
+        public TMP_FontAsset ThemeFont { get => themeFont; set { themeFont = value; ApplyTheme(); } }
 
         private void Awake()
         {
