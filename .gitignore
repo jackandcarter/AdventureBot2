@@ -60,6 +60,7 @@ Icon?
 *.pidb
 *.booproj
 *.userprefs
+*.meta
 
 # Unity3D generated files
 *.pidb.meta
