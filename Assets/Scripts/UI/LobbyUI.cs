@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
 using Evolution.Core.Multiplayer;
+using Evolution.Core;
 
 namespace Evolution.UI
 {
@@ -87,7 +88,7 @@ namespace Evolution.UI
 
             string name = lobbyNameInput != null ? lobbyNameInput.text : $"Lobby{Random.Range(1000,9999)}";
             string pwd = passwordInput != null ? passwordInput.text : null;
-            currentLobby = lobbyManager.CreateLobby(name, (int)NetworkManager.Singleton.LocalClientId, GameType.Multiplayer, "Easy", pwd);
+            currentLobby = lobbyManager.CreateLobby(name, (int)NetworkManager.Singleton.LocalClientId, GameType.Coop, "Easy", pwd);
             Refresh();
             if (classSelectPanel != null)
                 classSelectPanel.gameObject.SetActive(true);
