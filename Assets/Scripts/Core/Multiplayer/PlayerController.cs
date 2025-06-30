@@ -30,7 +30,7 @@ namespace Evolution.Core.Multiplayer
         private void Start()
         {
             if (dungeonGenerator == null)
-                dungeonGenerator = FindObjectOfType<DungeonGenerator>();
+                dungeonGenerator = FindFirstObjectByType<DungeonGenerator>();
         }
 
         public override void OnNetworkSpawn()
