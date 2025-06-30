@@ -5,10 +5,10 @@ GameObject:
   m_Name: Door
   m_Component:
   - component: {fileID: 2}
-  - component: {fileID: 3} # MeshFilter
-  - component: {fileID: 4} # MeshRenderer
-  - component: {fileID: 5} # BoxCollider
-  - component: {fileID: 6} # Door
+  - component: {fileID: 3}
+  - component: {fileID: 4}
+  - component: {fileID: 5}
+  - component: {fileID: 6}
 --- !u!4 &2
 Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
