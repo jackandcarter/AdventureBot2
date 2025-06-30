@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using Evolution.Dungeon;
 using Evolution.Combat;
 using Evolution.Data;
